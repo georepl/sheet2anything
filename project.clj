@@ -1,6 +1,6 @@
 (defproject sheet2anything "0.1.0-SNAPSHOT"
   :description "take spreadsheet columns and feed the cells into variables of a document template"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/georepl/sheet2anything"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
