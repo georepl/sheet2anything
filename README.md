@@ -20,7 +20,7 @@ None yet.
 
 ## Examples
 
-Assume your spreadsheet has a sheet called "Great Things" containing five columns A, B, C, and D. The data look like:
+Assume your spreadsheet has a sheet called "Great Things" containing four columns A, B, C, and D. The data look like:
 
     A             B             C             D
     item          category      location      field

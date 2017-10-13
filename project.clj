@@ -7,4 +7,5 @@
                  [dk.ative/docjure "1.11.0"]]
   :main ^:skip-aot sheet2anything.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:dev {:plugins [[lein-cloverage "1.0.9"]]}
+             :uberjar {:aot :all}})

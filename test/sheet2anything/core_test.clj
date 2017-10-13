@@ -10,6 +10,10 @@
   (testing "split-token"
     (is (= ["<test>" " 123 456" ""]
            (split-token "<test> 123 456")))
+    (is (= ["<" "test 123 456" ""]
+           (split-token "<test 123 456")))
+    (is (= ["<test 123 45>" "6" ""]
+           (split-token "<test 123 45>6")))
     (is (= ["" "" "<SHEET test { A: fst} >"]
            (split-token "<SHEET test { A: fst} >")))
     (is (= ["" "123 456" ""]

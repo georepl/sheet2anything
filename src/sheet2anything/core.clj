@@ -32,7 +32,7 @@
 (defn split-token [s]
   (if (str/starts-with? s "<")
     (let [l     (str/index-of s \>)
-          len   (if (zero? l) l (inc l))
+          len   (if (nil? l) 1 (if (zero? l) l (inc l)))
           [a b] (split-at len s)
           s1    (if (str/blank? (apply str a)) "" (apply str a))
           s2    (if (str/blank? (apply str b)) "" (apply str b))]
