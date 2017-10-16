@@ -10,9 +10,14 @@ Download from https://github.com/georepl/sheet2anything.
 
 ## Usage
 
-FIXME: explanation
+Syntax:
 
     $ java -jar sheet2anything-0.1.0-standalone.jar x <spreadsheed file> t <text template file>
+
+Working example:
+
+
+
 
 ## Options
 

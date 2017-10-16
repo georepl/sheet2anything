@@ -26,7 +26,7 @@
 
 (defn print-records [fix-coll var-coll token-coll]
   (doseq [t (first token-coll)]  ; for the time being: take list for first sheet only
-    (println (str/join (interleave fix-coll (map #(replace-token t %) var-coll))))))
+    (print (str/join (interleave (map #(replace-token t %) var-coll) fix-coll)))))
 
 
 (defn split-token [s]
@@ -37,22 +37,21 @@
           s1    (if (str/blank? (apply str a)) "" (apply str a))
           s2    (if (str/blank? (apply str b)) "" (apply str b))]
       (if (str/starts-with? (apply str s1) "<SHEET")
-        (vector "" "" (apply str s1))
+        (vector "" (apply str s2) (apply str s1))
         (vector (apply str s1) (apply str s2) "")))
     (vector "" s "")))
 
 
 ; create three vectors from the template file: one for the fix strings and one for those to be replaced plus a keyword string list
 (defn read-template [s]
-  (let [str-coll (str/split s #"§")
-        coll     (map split-token str-coll)]
-    (filter #(not-every? empty? %) coll)))
+  (let [str-coll (str/split s #"§")]
+   (map split-token str-coll)))
 
 
 (defn set-keywords [keyw-coll]
   (letfn [(split-keywords [keyw]
             (let [kw    (apply str (rest (butlast keyw)))]
-            (map str/trim (str/split kw #"\""))))]
+              (map str/trim (str/split kw #"\""))))]
     (map split-keywords keyw-coll)))
 
 
@@ -62,9 +61,8 @@
   (let [workbook  (init-spreadsheet xls-file)
         sht-coll  (init-sheets workbook)
         coll      (read-template (slurp tpl-file))
-        fv-coll   (filter (fn[[a b c]] (not (and (empty? a)(empty? b)))) coll)
-        fix-coll  (map second fv-coll)
-        var-coll  (map #(apply str (rest (butlast %))) (map first fv-coll))
+        fix-coll  (map second coll)
+        var-coll  (map #(apply str (rest (butlast %))) (map first coll))
         key-coll  (set-keywords (filter (complement empty?) (map last coll)))
         val-coll  (read-columns workbook key-coll)]
     (print-records fix-coll var-coll val-coll)))
